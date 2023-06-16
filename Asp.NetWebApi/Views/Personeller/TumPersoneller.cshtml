@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "TumPersoneller";
+}
+
+<h2>Tüm Personeller</h2>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<input type="button" id="personelListele" value="Personelleri Listele"/>
+<div id="personeller"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#personelListele").click(function () {
+            $.getJSON('../api/personel').done(function (veri) {
+                var personeller = "";
+                $.each(veri, function (key, personel) {
+                    personeller += personel.Ad + " " + personel.Soyad + "<br/>";
+                });
+                $("#personeller").html(personeller);
+            })
+        });
+    })
+
+</script>

@@ -1,0 +1,66 @@
+﻿@model Asp.NetWebApi.Models.Personel
+
+@{
+    ViewBag.Title = "YeniPersoneller";
+}
+
+<h2>Yeni Personeller</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document)
+        .ready(function () {
+            $('#kaydet').click(function () {
+                var perId = $('#Id').val();
+                var perAd = $('#Ad').val();
+                var perSoyad = $('#Soyad').val();
+
+                $.post('../api/personel', { Id: perId, Ad: perAd, Soyad: perSoyad }, function (sonuc) {
+                    alert("Kayıt Eklendi");
+                })
+            })
+        })
+</script>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Personel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ad, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Soyad, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Soyad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Soyad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" id="kaydet" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <a href="/Personeller/TumPersoneller">Back To list</a>
+   @*// @Html.ActionLink("Back To List", "Personeller", "TumPersoneller")*@
+</div>

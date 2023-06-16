@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "PersonelGetir";
+}
+
+<h2>Personel Getir</h2>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+Personel Id <input type="text" id="personelId" />
+<input type="button" id="personelGetir" value="Personeli Getir" />
+<div id="personel"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#personelGetir").click(function () {
+            var personelId = $("#personelId").val();
+
+            $.getJSON('../api/personel/' + personelId)
+                .done(function (veri) {
+                    var personelBilgisi = veri.Ad + " " + veri.Soyad;
+
+                    $('#personel').html(personelBilgisi);
+                })
+        })
+    })
+</script>
